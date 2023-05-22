@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { IpokemonDetail } from "@datastore/server/interface/PokemonInterface";
 import { cardContent, cardFooter } from "@components/pokemonCard/styles";
+import { colorType } from "@helpers/pokeType";
 
 interface PokemonProps {
   dataPokemon:IpokemonDetail[];
@@ -14,11 +15,12 @@ const PokemonCard:FC <PokemonProps> = ({dataPokemon,setModal,setPokemonData}) =>
     setModal(true)
     setPokemonData(dataPokemon)
   }
+  
   return (
     <div className={cardContent} onClick={handleClick}>
       <img  className="cardImage" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`} alt={name}/>
         <div >
-          <div >{id}</div>
+          <div className="cardId">{`#00${id}`}</div>
           <p >
             {name}
           </p>
@@ -26,7 +28,7 @@ const PokemonCard:FC <PokemonProps> = ({dataPokemon,setModal,setPokemonData}) =>
         <div className={cardFooter}>
           {
             types.map((data) => (
-              <span className="type">{data.type.name}</span>
+              <div className="type" style={{background:colorType[data.type.name] || 'white'}}>{data.type.name}</div>
             ))
           }
         </div>

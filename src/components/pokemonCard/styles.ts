@@ -15,14 +15,37 @@ export const cardContent = css `
     max-width: 100%;
     height: auto;
   }
+  .cardId{
+    font-weight:bold;
+    font-size:2em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:10px;
+    margin:0;
+  }
+  p{
+    font-weight:bold;
+    font-size:3em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:10px;
+    margin:0;
+  }
 `
 
 export const cardFooter = css`
   padding:0.5rem;
+  justify-content: center;
+  display: flex;
   .type{
     padding:10px;
-    color:blue;
+    color:#F5F5F5;
     border: 1px black solid;
+    margin: 10px;
+    font-weight: bold;
+    border-radius: 8px;
+    width:40%;
+    text-align: center;
   }
 `
 

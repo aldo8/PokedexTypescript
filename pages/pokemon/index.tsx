@@ -36,16 +36,18 @@ if(loading == true) {
 return (
   <>
   <ScreenCover/>
-  <section id="browse-pokemon" style={{background:'yellow'}} className={cardContainer}>
+  <section id="browse-pokemon" style={{background:'#FFCB3B',justifyItems:'center',padding:'2em'}} className={cardContainer}>
       {pokemonList.map((pokemon) => (
         <div>
           <PokemonCard dataPokemon={pokemon.data} setModal={setModal} setPokemonData={setPokemonData}/>
         </div>
 
       ))}
-      <PaginationPage totalPage={listPokemon.count} totalItem={9} setPokemonList={setPokemonList} setPage={setPage}/>
       {modal && <PokemonModal open={modal} setModal={setModal} pokemonData={pokemonData}/>}
-  </section>
+      </section>
+      <div style={{background:'#FFCB3B',justifyContent:'center',width:'100%',padding:'2em 0',display:'flex'}}>
+      <PaginationPage totalPage={listPokemon.count} totalItem={9} setPokemonList={setPokemonList} setPage={setPage}/>
+      </div>
   </>
 )
 

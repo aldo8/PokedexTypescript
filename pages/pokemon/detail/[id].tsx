@@ -9,6 +9,7 @@ import PokemonStatus from "@components/pokemonStatus";
 import { fetchPokemonList } from "@pages/api/fetchPokemonList";
 import { fetchSpecies } from "@pages/api/fetchSpecies";
 import PokemonEvolution from "@components/pokemonEvolution";
+import { colorType } from "@helpers/pokeType";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
     row: {
         display: 'flex',
@@ -27,6 +28,33 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         
     },
+    labelContainer:{
+      display:'flex',
+      flexDirection:'row',
+      width:'100%'
+    },
+    labelPokemon:{
+      width:'100%',
+      fontSize:'1.2em',
+      fontWeight:400
+    },
+    btnModal:{
+      margin:'0 10px',
+      background:'#E6AB09',
+      fontWeight:400,
+    },
+    type:{
+      width:'20%',
+      fontSize:'1.2em',
+      fontWeight:400,
+      border:'1px solid black',
+      borderRadius:'8px',
+      textAlign:'center',
+      margin:'10px',
+      padding:'10px',
+      color:'#F5F5F5',
+      cursor:'pointer'
+    }
 }));
 const style = {
     position: 'absolute' as 'absolute',
@@ -80,10 +108,12 @@ const DetailPokemon: FC = () => {
 
     </Grid>
 
-    < Grid item xs = { 6} className = { classes.column } >
-        <Typography variant="h6" > { pokemonDetail?.data.name } < /Typography>
-            < Typography variant = "h6" > Weight : { pokemonDetail?.data.weight } </Typography>
-                < Typography variant = "h6" > Weight : { pokemonDetail?.data.height } </Typography>
+    <Grid item xs={6} className={classes.columnRight}>
+        <Typography variant="h2" style={{textTransform:'uppercase',fontWeight:'400'}}> { pokemonDetail?.data.name } < /Typography>
+        <div className={classes.labelContainer}>    
+        <div className={classes.labelPokemon}> Weight : { pokemonDetail?.data.weight } </div>
+                <Typography className={classes.labelPokemon}> Weight : { pokemonDetail?.data.height } </Typography>
+                </div>
                     < Typography variant = "h6" > Abilities : </Typography>
 {
     pokemonDetail?.data.abilities.map((data) => (
@@ -91,17 +121,22 @@ const DetailPokemon: FC = () => {
     ))
 }
 <Typography variant="h6" > Type : </Typography>
+<div className={classes.labelContainer}>
 {
     pokemonDetail?.data.types.map((data) => (
-        <li>{ data.type.name } < /li>        
+        <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{ data.type.name } < /div>        
     ))
 }
+</div>
 </Grid>
     < /Grid>
     < /div>
     < div >
     <Grid container spacing = {1} style={{gap:'10px'}}>
-            {
+    <Grid item xs = { 12} className = { classes.column } >
+        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Other Pokemon : </Typography>
+        <Grid  item xs = { 12} className = { classes.row } >    
+        {
                 otherPokemon?.map((pokemon) => (
                     <>
                     <img style={{width:'10%', border:'1px solid black'}} className="cardImage" src = {`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.data.id}.png`} alt = { pokemon.data.name } />
@@ -109,10 +144,12 @@ const DetailPokemon: FC = () => {
                 ))
                 
             }
+            </Grid>
+            </Grid>
     </Grid>
     <Grid container spacing = { 1} >
         <Grid item xs = { 12} className = { classes.column } >
-        <Typography variant="h5" style={{display:'flex', alignItems:'flex-start'}}>Stat : </Typography>
+        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Stat : </Typography>
 
                 < /Grid>
                 < Grid item xs = { 12} className = { classes.row } >
@@ -129,7 +166,7 @@ const DetailPokemon: FC = () => {
                     < /Grid>
                     < Grid container spacing = { 1} >
                         <Grid item xs = { 12} className = { classes.column } >
-                            <Typography>Evolution : </Typography>
+                            <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Evolution : </Typography>
 
                                 < /Grid>
                                 

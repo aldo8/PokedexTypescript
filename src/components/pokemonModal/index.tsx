@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Button,Box, Modal, Typography, makeStyles,Grid } from '@material-ui/core';
 import { IpokemonDetail } from "@datastore/server/interface/PokemonInterface";
 import { useRouter } from 'next/router';
+import { colorType } from "@helpers/pokeType";
 
 interface PokemonModalProps {
     open: boolean;
@@ -20,6 +21,40 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    columnRight: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    labelContainer:{
+      display:'flex',
+      flexDirection:'row',
+      width:'100%'
+    },
+    labelPokemon:{
+      width:'100%',
+      fontSize:'1.2em',
+      fontWeight:400
+    },
+    btnModal:{
+      margin:'0 10px',
+      background:'#E6AB09',
+      fontWeight:400,
+    },
+    type:{
+      width:'20%',
+      fontSize:'1.2em',
+      fontWeight:400,
+      border:'1px solid black',
+      borderRadius:'8px',
+      textAlign:'center',
+      margin:'10px',
+      padding:'10px',
+      color:'#F5F5F5',
+      cursor:'pointer'
+    }
+
   }));
   const style = {
     position: 'absolute' as 'absolute',
@@ -49,20 +84,26 @@ const PokemonModal: FC<ModalProps> = ({ open, setModal, pokemonData }) => {
             <img  className="cardImage" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`} alt={name}/>
             {/* Add your content here */}
           </Grid>
-          <Grid item xs={6} className={classes.column}>
+          <Grid item xs={6} className={classes.columnRight}>
             {/* Content for the right column */}
-            <Typography variant="h6">{pokemonData.name}</Typography>
-            <Typography variant="h6">Weight : {pokemonData.weight}</Typography>
-            <Typography variant="h6">Weight : {pokemonData.height}</Typography>
+            <Typography variant="h2" style={{textTransform:'uppercase',fontWeight:'400'}}>{pokemonData.name}</Typography>
+            <div className={classes.labelContainer}>
+            <div className={classes.labelPokemon}>Weight : {pokemonData.weight}</div>
+            <div className={classes.labelPokemon}>Height : {pokemonData.height}</div>
+            </div>
             <Typography variant="h6">Abilities : </Typography>
             {pokemonData.abilities.map((data) => (
+              <div className={classes.labelContainer}>
                 <li variant="h6">{data.ability.name}</li>
+                </div>
             ))}
             <Typography variant="h6">Type : </Typography>
+            <div className={classes.labelContainer}>
             {pokemonData.types.map((data) => (
-                <li variant="h6">{data.type.name}</li>
+                <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{data.type.name}</div>
             ))}
-            <Button onClick={() => router.push(`/pokemon/detail/${pokemonData.id}`)}>More Details</Button>
+            </div>
+            <Button className={classes.btnModal} onClick={() => router.push(`/pokemon/detail/${pokemonData.id}`)}>More Details</Button>
           </Grid>
         </Grid>
       </Box>

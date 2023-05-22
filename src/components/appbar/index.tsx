@@ -6,13 +6,13 @@ const pages = [{name:'Home',path:'/pokemon'}, {name:'Pokemon Type',path:'/pokemo
 const Appbar : FC = () => {
   const router = useRouter()
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{background:'#FFFFFF'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <MenuItem key={page.name} >
-                  <Typography textAlign="center" onClick={() => router.push(page.path)}>{page.name}</Typography>
+                  <Typography style={{color:'#E6AB09'}} textAlign="center" onClick={() => router.push(page.path)}>{page.name}</Typography>
                 </MenuItem>
               ))}
               </Box>
