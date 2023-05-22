@@ -19,6 +19,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@api/*": [
+        "pages/api/"
+      ],
+      "@api": [
+        "pages/api/"
+      ],
       "@pages/*": [
         "pages/*"
       ],
