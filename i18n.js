@@ -5,5 +5,7 @@ module.exports = {
     pages: {
         "*": ["common"],
         "/": ["home"],
-    },
+        "/pokemon":["pokemon"],
+        "/pokemon/detail/[id]":["detail"]
+    }
 };

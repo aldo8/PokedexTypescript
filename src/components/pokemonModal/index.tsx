@@ -3,6 +3,7 @@ import { Button,Box, Modal, Typography, makeStyles,Grid } from '@material-ui/cor
 import { IpokemonDetail } from "@datastore/server/interface/PokemonInterface";
 import { useRouter } from 'next/router';
 import { colorType } from "@helpers/pokeType";
+import useTranslation from "next-translate/useTranslation";
 
 interface PokemonModalProps {
     open: boolean;
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
     p: 4,
   };
 const PokemonModal: FC<ModalProps> = ({ open, setModal, pokemonData }) => {
+  const { t } = useTranslation("pokemon");
     const router = useRouter();
     
     const classes = useStyles();
@@ -88,22 +90,22 @@ const PokemonModal: FC<ModalProps> = ({ open, setModal, pokemonData }) => {
             {/* Content for the right column */}
             <Typography variant="h2" style={{textTransform:'uppercase',fontWeight:'400'}}>{pokemonData.name}</Typography>
             <div className={classes.labelContainer}>
-            <div className={classes.labelPokemon}>Weight : {pokemonData.weight}</div>
-            <div className={classes.labelPokemon}>Height : {pokemonData.height}</div>
+            <div className={classes.labelPokemon}>{t("card-label-weight")} : {pokemonData.weight}</div>
+            <div className={classes.labelPokemon}>{t("card-label-height")} : {pokemonData.height}</div>
             </div>
-            <Typography variant="h6">Abilities : </Typography>
+            <Typography variant="h6">{t("card-label-ability")} : </Typography>
             {pokemonData.abilities.map((data) => (
               <div className={classes.labelContainer}>
                 <li variant="h6">{data.ability.name}</li>
                 </div>
             ))}
-            <Typography variant="h6">Type : </Typography>
+            <Typography variant="h6">{t("card-label-type")} : </Typography>
             <div className={classes.labelContainer}>
             {pokemonData.types.map((data) => (
-                <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{data.type.name}</div>
+                <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{t(`${data.type.name}`)}</div>
             ))}
             </div>
-            <Button className={classes.btnModal} onClick={() => router.push(`/pokemon/detail/${pokemonData.id}`)}>More Details</Button>
+            <Button className={classes.btnModal} onClick={() => router.push(`/pokemon/detail/${pokemonData.id}`)}>{t("card-modal-btn")}</Button>
           </Grid>
         </Grid>
       </Box>

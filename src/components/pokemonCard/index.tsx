@@ -2,6 +2,7 @@ import { FC } from "react";
 import { IpokemonDetail } from "@datastore/server/interface/PokemonInterface";
 import { cardContent, cardFooter } from "@components/pokemonCard/styles";
 import { colorType } from "@helpers/pokeType";
+import useTranslation from "next-translate/useTranslation";
 
 interface PokemonProps {
   dataPokemon:IpokemonDetail[];
@@ -9,6 +10,7 @@ interface PokemonProps {
   setPokemonData:(data:IpokemonDetail) => void;
 }
 const PokemonCard:FC <PokemonProps> = ({dataPokemon,setModal,setPokemonData}) => {
+  const {t} = useTranslation("pokemon");
   const {name,types,id} = dataPokemon;
   
   const handleClick = () => {
@@ -28,7 +30,7 @@ const PokemonCard:FC <PokemonProps> = ({dataPokemon,setModal,setPokemonData}) =>
         <div className={cardFooter}>
           {
             types.map((data) => (
-              <div className="type" style={{background:colorType[data.type.name] || 'white'}}>{data.type.name}</div>
+              <div className="type" style={{background:colorType[data.type.name] || 'white'}}>{t(`${data.type.name}`)}</div>
             ))
           }
         </div>

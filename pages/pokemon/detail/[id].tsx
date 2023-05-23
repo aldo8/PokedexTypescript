@@ -74,10 +74,11 @@ const DetailPokemon: FC = () => {
     const [evolution, setEvolution] = useState<IpokemonDetail>();
     const [otherPokemon, setOtherPokemon] = useState<IpokemonDetail>();
     const [species, setSpecies] = useState<any>();
-    const { t } = useTranslation();
+    const { t } = useTranslation("detail");
     const router = useRouter();
     const { id } = router.query;
     const classes = useStyles();
+
     useEffect(() => {
         (async () => {
             setLoading(true);
@@ -89,7 +90,7 @@ const DetailPokemon: FC = () => {
             setLoading(false);
 
         })();
-    }, [])
+    }, [id])
     
     const data = otherPokemon?.filter(data => data.id !== id) 
     
@@ -111,20 +112,20 @@ const DetailPokemon: FC = () => {
     <Grid item xs={6} className={classes.columnRight}>
         <Typography variant="h2" style={{textTransform:'uppercase',fontWeight:'400'}}> { pokemonDetail?.data.name } < /Typography>
         <div className={classes.labelContainer}>    
-        <div className={classes.labelPokemon}> Weight : { pokemonDetail?.data.weight } </div>
-                <Typography className={classes.labelPokemon}> Weight : { pokemonDetail?.data.height } </Typography>
+        <div className={classes.labelPokemon}> {t("label-weight")} : { pokemonDetail?.data.weight } </div>
+                <Typography className={classes.labelPokemon}> {t("label-height")} : { pokemonDetail?.data.height } </Typography>
                 </div>
-                    < Typography variant = "h6" > Abilities : </Typography>
+                    < Typography variant = "h6" > {t("label-ability")} : </Typography>
 {
     pokemonDetail?.data.abilities.map((data) => (
         <li>{ data.ability.name } < /li>        
     ))
 }
-<Typography variant="h6" > Type : </Typography>
+<Typography variant="h6" > {t("label-type")} : </Typography>
 <div className={classes.labelContainer}>
 {
     pokemonDetail?.data.types.map((data) => (
-        <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{ data.type.name } < /div>        
+        <div className={classes.type} style={{background:colorType[data.type.name] || 'white'}}>{ t(`${data.type.name}`) } < /div>        
     ))
 }
 </div>
@@ -134,12 +135,12 @@ const DetailPokemon: FC = () => {
     < div >
     <Grid container spacing = {1} style={{gap:'10px'}}>
     <Grid item xs = { 12} className = { classes.column } >
-        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Other Pokemon : </Typography>
+        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >{t("label-other")}: </Typography>
         <Grid  item xs = { 12} className = { classes.row } >    
         {
                 otherPokemon?.map((pokemon) => (
                     <>
-                    <img style={{width:'10%', border:'1px solid black'}} className="cardImage" src = {`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.data.id}.png`} alt = { pokemon.data.name } />
+                    <img style={{width:'10%', border:'1px solid black'}} className="cardImage" src = {`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.data.id}.png`} alt = { pokemon.data.name } onClick={() => router.push(`/pokemon/detail/${pokemon.data.id}`)}/>
                     </>
                 ))
                 
@@ -149,7 +150,7 @@ const DetailPokemon: FC = () => {
     </Grid>
     <Grid container spacing = { 1} >
         <Grid item xs = { 12} className = { classes.column } >
-        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Stat : </Typography>
+        <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >{t("label-stats")} : </Typography>
 
                 < /Grid>
                 < Grid item xs = { 12} className = { classes.row } >
@@ -166,7 +167,7 @@ const DetailPokemon: FC = () => {
                     < /Grid>
                     < Grid container spacing = { 1} >
                         <Grid item xs = { 12} className = { classes.column } >
-                            <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >Evolution : </Typography>
+                            <Typography variant="h5" style={{fontWeight:'600',marginTop:'20px'}} >{t("label-evolution")} : </Typography>
 
                                 < /Grid>
                                 

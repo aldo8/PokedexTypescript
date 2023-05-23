@@ -18,6 +18,7 @@ const PokemonList: FC = () => {
   const [pokemonList, setPokemonList] = useState<IpokemonDetail[]>([]);
   const [listPokemon, setListPokemon] = useState<IPokemonListResponse>([]);
   const [modal, setModal] = useState(false);
+  
   useEffect( () => {
     (async () => {
     setLoading(true);
